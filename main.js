@@ -14,6 +14,7 @@ let letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
 const printBoard = (board) =>  {
   console.log(`The Board:`)
+  console.log(solution)
   for (let i = 0; i < board.length; i++) {
     console.log(`Turn ${i+1} : ${board[i]}`);
   }
@@ -25,7 +26,12 @@ const printBoard = (board) =>  {
 const generateSolution = () =>  {
   for (let i = 0; i < 4; i++) {
     const randomIndex = getRandomInt(0, letters.length);
-    solution += letters[randomIndex];
+    if(solution.includes(letters[randomIndex]) == false) {
+      solution = solution + letters[randomIndex]
+    }
+    else {
+      i--
+    }
   }
 }
 
@@ -46,16 +52,20 @@ const generateHint = (guess) =>  {
       correctPlace = correctPlace + 1
       guessArray.splice([i], 1)
       solutionArray.splice([i], 1)
-      i = -1
+      i--
       }
     }
   
-  for (let i=0; i< guessArray.length; i++) {
-    if (guessArray.includes(solutionArray[i])) {
-    correctLetter = correctLetter + 1
+    for (let i=0; i< guessArray.length; i++) {
+      if (guessArray.includes(solutionArray[i])) {
+      console.log(`GH guessArray contains solutionArray value: ${solutionArray[i]}`)
+  
+      correctLetter = correctLetter + 1
+      console.log(`GH correctLetter current count: ${correctLetter}`)
+      }
     }
-  }
-  return `${correctPlace}-${correctLetter}`
+    console.log(`GH This is your hint!${correctPlace}-${correctLetter}`)
+    return `${correctPlace}-${correctLetter}`
 }
 
 const mastermind = (guess) => {

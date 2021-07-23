@@ -91,11 +91,32 @@ const printBoard = (board) =>  {
   }
 }
 
+// const generateSolution = () =>  {
+//   for (let i = 0; i < 4; i++) {
+//     const randomIndex = getRandomInt(0, letters.length);
+//     solution += letters[randomIndex];
+//   }
+// }
+
+//fixed it to not do doubles
 const generateSolution = () =>  {
   for (let i = 0; i < 4; i++) {
     const randomIndex = getRandomInt(0, letters.length);
-    solution += letters[randomIndex];
+    console.log(`proposed letter outside the if statement: ${letters[randomIndex]}`)
+    console.log(`Current index of solution: ${i}`)
+    console.log(`Does the solution include the letter at that random index?: ${solution.includes(letters[randomIndex])} `)
+    
+    if(solution.includes(letters[randomIndex]) == false) {
+      console.log(`proposed letter inside if statement: ${letters[randomIndex]}`)
+      solution = solution + letters[randomIndex]
+      console.log(`current solution: ${solution}`)
+    }
+    else {
+      console.log(`'there was a double; let's try again`)
+      i--
+    }
   }
+  console.log(`solution: ${solution}`)
 }
 
 const getRandomInt = (min, max) => {
@@ -145,6 +166,21 @@ const generateHint = (guess) =>  {
   console.log(`GH This is your hint!${correctPlace}-${correctLetter}`)
   return `${correctPlace}-${correctLetter}`
 }
+
+//this generates the second hint - if any letters match - accounting for double letters
+//the solution above does not account for double letters
+// for (let i=0; i< guessArray.length; i++) {
+//   let letter = solutionArray[i]
+//   let found = guessArray.indexOf(letter) //returns first position that matches that letter
+//   if (found>-1) {
+//   correctLetter = correctLetter + 1
+//   guessArray[found] = null
+// //guess array is bade; solution array is abbb; i = 0;  letter = a; found = 1;
+// //guess array b_de; round three _ _de 
+//   }
+// }
+// return `${correctPlace}-${correctLetter}`
+// }
 
 
 const mastermind = (guess) => {
